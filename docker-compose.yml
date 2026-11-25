@@ -1,0 +1,15 @@
+# The local AWS emulator. Everything else is created by Terraform (scripts/deploy.sh).
+services:
+  floci:
+    image: floci/floci:latest
+    container_name: floci
+    ports:
+      - "4566:4566"   # AWS API
+      - "8080:80"     # emulated ALB listener (port 80 in Floci)
+    environment:
+      # Floci starts Lambda/Redis/ECS/ECR containers itself. This label makes Docker Desktop
+      # show them inside the "floci-application" group, next to the floci container.
+      FLOCI_DOCKER_EXTRA_LABELS_0__KEY: com.docker.compose.project
+      FLOCI_DOCKER_EXTRA_LABELS_0__VALUE: floci-application
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock   # Floci starts Lambda/ECS/Redis as real containers

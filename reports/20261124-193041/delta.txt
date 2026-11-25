@@ -1,0 +1,32 @@
+  PASS  VPC 10.0.0.0/16
+  PASS  2 public subnets (10.0.1.0/24, 10.0.2.0/24) in 2 AZs
+  PASS  2 private subnets (10.0.11.0/24, 10.0.12.0/24) in 2 AZs
+  PASS  Internet gateway attached to the VPC
+  PASS  NAT gateway in each public subnet (one per AZ)
+  PASS  Public route tables: 0.0.0.0/0 -> internet gateway
+  PASS  Private route tables: 0.0.0.0/0 -> NAT gateway (one per AZ)
+  PASS  ALB security group: inbound 80 only
+  PASS  Task security group: inbound 8000 only, from the ALB group
+  PASS  Cache security group: inbound 6379 only, from the task and Lambda groups
+  PASS  Internet-facing ALB in the 2 public subnets
+  PASS  ALB listener :80 forwards to target group :8000 with /health check
+  PASS  4 ECS Fargate tasks RUNNING (2 per AZ)
+  PASS  ECS service network config: private subnets + task security group
+  PASS  ECS tasks spread across 2 AZs, 2 in each
+  PASS  ECS execution role has the task-execution managed policy
+  PASS  ElastiCache primary + replica, multi-AZ with automatic failover
+  PASS  ElastiCache subnet group = the 2 private subnets
+  PASS  ElastiCache uses the cache security group
+  PASS  Lambda stock-updater has ENIs in both private subnets (vpc_config)
+  PASS  Lambda role has the VPC-access managed policy
+  PASS  EventBridge rate(1 hour) -> Lambda stock-updater
+  PASS  DynamoDB table stock: key ticker, on-demand
+  PASS  DynamoDB items: 5 tickers, enabled flag, cache_minutes between 30 and 60
+  PASS  DynamoDB gateway VPC endpoint on both private route tables
+  PASS  ECS task role can read the stock table (least privilege)
+  PASS  Lambda role can read the stock table (least privilege)
+  PASS  API task and Lambda are wired to the stock table (DYNAMODB_TABLE=stock)
+  PASS  ECR repository stock-api with an image
+  PASS  CloudWatch log groups /ecs/stock-api and /aws/lambda/stock-updater
+
+Diagram match: 30/30 = 100%   gaps: 0
