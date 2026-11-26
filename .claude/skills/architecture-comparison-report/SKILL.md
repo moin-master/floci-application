@@ -5,7 +5,7 @@ description: Write docs/architecture-comparison-report.md comparing the producti
 
 # Architecture comparison report
 
-Produce `docs/architecture-comparison-report.md`. Sections C (Match) and D (Delta) are the same ones `scripts/report.py` puts in every pipeline report (`reports/latest/summary.md`); reuse them, built from the fresh `delta.sh` output and section D of `docs/architecture.md`, instead of writing them from memory. Every claim in it must come from a run you did now, not from memory or from the old doc.
+Produce `docs/architecture-comparison-report.md`. Sections C (Match) and D (Delta) are the same ones `scripts/report.py` puts in every pipeline report (`reports/latest/summary.md`); reuse them, built from the fresh `delta.sh` output and section D of `docs/match-delta.md`, instead of writing them from memory. Every claim in it must come from a run you did now, not from memory or from the old doc.
 
 ## Steps
 

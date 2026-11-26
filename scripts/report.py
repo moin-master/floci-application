@@ -22,13 +22,13 @@ def words(name):
 
 
 def delta_table():
-    """Section D of docs/architecture.md: the known differences between AWS and Floci."""
+    """Section D of docs/match-delta.md: the known differences between AWS and Floci."""
     try:
-        doc = open("docs/architecture.md").read()
+        doc = open("docs/match-delta.md").read()
     except FileNotFoundError:
-        return ["(docs/architecture.md not found)"]
+        return ["(docs/match-delta.md not found)"]
     m = re.search(r"^## D\. Delta.*?\n(.*)\Z", doc, re.S | re.M)
-    return m.group(1).strip().splitlines() if m else ["(section D not found in docs/architecture.md)"]
+    return m.group(1).strip().splitlines() if m else ["(section D not found in docs/match-delta.md)"]
 
 
 def delta():

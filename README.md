@@ -25,7 +25,7 @@
 | ElastiCache primary + replica (Valkey) | DynamoDB via `aws_endpoint_override` | Real multi-AZ failover |
 | Lambda + hourly EventBridge, DynamoDB, CloudWatch logs | ALB at `localhost:8080` with a `Host` header | IAM / security group enforcement |
 
-`terraform plan` on a deployed stack shows 3 harmless security group diffs (ids read back with an account prefix). Full match/delta tables: [docs/architecture.md](docs/architecture.md).
+`terraform plan` on a deployed stack shows 3 harmless security group diffs (ids read back with an account prefix). Full match/delta tables: [docs/match-delta.md](docs/match-delta.md).
 
 ## The application
 
@@ -56,7 +56,7 @@ ALB=$(curl -s "localhost:4566/?Action=DescribeLoadBalancers&Version=2015-12-01" 
 curl -i -H "Host: $ALB" localhost:8080/stocks/AAPL
 ```
 
-Floci console: <http://localhost:4566/_floci/ui>
+Floci console: open <http://localhost:4566/_floci/ui>. It starts the console and takes you to <http://localhost:4500/console/aws>. See [docs/floci-runtime.md](docs/floci-runtime.md#web-console).
 
 ## Layout
 
@@ -67,7 +67,9 @@ Floci console: <http://localhost:4566/_floci/ui>
 | `terraform/` | Infrastructure, one file per component |
 | `scripts/` | deploy, destroy, tf, test, verify, delta, e2e, pipeline, try, clean-reports |
 | `tests/` | e2e tests and the delta checker |
-| `docs/architecture.md` | Diagrams A and B, match and delta tables |
+| `docs/architecture.md` | Diagrams A (production AWS) and B (Floci) |
+| `docs/match-delta.md` | Match (C) and delta (D) tables |
+| `docs/floci-runtime.md` | Docker containers and Floci web console, with screenshots |
 | `docs/manual-testing.md` | Step-by-step curl commands to test by hand |
 
 Claude Code commands: `/deploy`, `/destroy`, `/pipeline`, `/clean-reports`.
